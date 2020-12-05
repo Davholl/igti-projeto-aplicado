@@ -1,20 +1,25 @@
 package br.com.igti.edugame.domain;
 
-import br.com.igti.edugame.config.Constants;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.igti.edugame.config.Constants;
 
 /**
  * A user.
@@ -72,6 +77,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Field("reset_date")
     private Instant resetDate = null;
+    
+    private List<Avatar> avatares;
 
     @JsonIgnore
     private Set<Authority> authorities = new HashSet<>();
@@ -181,7 +188,15 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.authorities = authorities;
     }
 
-    @Override
+    public List<Avatar> getAvatares() {
+		return avatares;
+	}
+
+	public void setAvatares(List<Avatar> avatares) {
+		this.avatares = avatares;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
